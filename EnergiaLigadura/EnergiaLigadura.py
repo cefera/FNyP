@@ -36,6 +36,7 @@ jpac_color = [jpac_blue, jpac_red, jpac_green,
               jpac_pink, jpac_gold, jpac_aqua, jpac_grey, 'black' ];
 
 jpac_axes = jpac_color[10]
+dashes = 40*'-'
 
 def SEMF(Z,N):
     aV, aS, aC, aA, delta = 15.75, 17.8, 0.711, 23.7, 11.18
@@ -65,9 +66,16 @@ fig = plt.figure(figsize=(8,5))
 plt.ylabel(r'$E_B/A$ (MeV)',fontsize=15)
 plt.xlabel(r'$A$',fontsize=15)
 plt.ylim((1.,9.))
+plt.xlim((0.,280.))
+plt.hlines(8.09670568181818,0.,280.,colors=jpac_color[9], lw=1., linestyles='dashed')
+plt.hlines(7.25,0.,280.,colors=jpac_color[9], lw=1., linestyles='dashed')
+plt.vlines(62,0.,maxavEbind['avEbind'].max(),colors=jpac_color[3], lw=1., linestyles='dashed')
 plt.scatter(maxavEbind['A'], maxavEbind['avEbind'],marker='o',s=5,c=jpac_color[0],label='AME2020')
 plt.plot(maxavEbind['A'], maxavEbind['avEbind'],'-',lw=1,c=jpac_color[0])
-#plt.plot(maxavEbind['A'], maxavEbind['Eapprox'],'-',lw=1,c=jpac_color[1],label='Bethe-Weizsacker')
+plt.text(215,8.2,r'$\bar{E}_B=8,1$ MeV',c=jpac_color[9],fontsize=15)
+plt.text(64,2,r'$E_B(^{62}_{28}$Ni$)=8,7945$ MeV',c=jpac_color[9],fontsize=15)
+plt.text(210,6.6,r'$E_B\simeq 7,25$ MeV',c=jpac_color[9],fontsize=15)
+plt.text(210,6.1,r'$A=270$',c=jpac_color[9],fontsize=15)
 plt.legend(loc='center right',ncol=1,frameon=True)
 plt.show()    
 fig.savefig("BindingEnergy.pdf", bbox_inches='tight')
@@ -105,3 +113,13 @@ fig.savefig("BindingEnergy3D.pdf", bbox_inches='tight')
 
 
 
+print(' '); print(dashes); print(' ')
+print('Nucleus with the highest binding energy: Exp')
+print(maxavEbind[ maxavEbind['avEbind'] == maxavEbind['avEbind'].max()])
+print(' ')
+print('Average binding energy:',maxavEbind['avEbind'].mean())
+print(' '); print(dashes); print(' ')
+print('Nucleus with the highest binding energy: Theo')
+print(maxavEbind[ maxavEbind['Eapprox'] == maxavEbind['Eapprox'].max()])
+
+print(maxavEbind)
