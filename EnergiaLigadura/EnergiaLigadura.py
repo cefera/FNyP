@@ -8,9 +8,8 @@ Física Nuclear y de Partículas
 version: junio 2024
 
 
-Mostly based on: https://scipython.com/blog/nuclear-binding-energies-1/ 
+Based on Christian Hill's https://scipython.com/blog/nuclear-binding-energies-1/ 
 """
-
 
 ##############################################################################   
 #
