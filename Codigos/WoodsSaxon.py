@@ -34,6 +34,7 @@ jpac_color = [jpac_blue, jpac_red, jpac_green,
 
 jpac_axes = jpac_color[10]
 
+#%%
 
 def radio(r0,A):
     return  r0*(A**(1/3))
@@ -84,3 +85,48 @@ plt.text(0.5,0.1,r'Continuo',c=jpac_color[1],fontsize=10)
 plt.legend(loc='center right',ncol=1,frameon=True)
 plt.show()    
 fig.savefig("WoodsSaxon.pdf", bbox_inches='tight')
+
+#%%
+
+def coulomb(Z,r):
+    return -2*Z/r
+
+def barrera(l,r):
+    return l*(l+1)/(r*r)
+
+def potencial(Z,l,r):
+    return coulomb(Z,r) + barrera(l,r)
+
+def En(ry,nr,l):
+    n = nr + l + 1
+    return -ry/(n**2)
+
+a0,ry  = 5.291772105, 13.6058
+Z, lmax, nmax =1, 2, 5
+
+fig = plt.figure(figsize=(5,5))
+rmin, rmax, rstep = 0.1, 15, 0.01
+r = np.arange(rmin,rmax,rstep)
+plt.xlim((rmin,rmax))
+plt.ylim((-20.,5))
+plt.ylabel(r'$V$ (eV)',fontsize=15)
+plt.xlabel(r'$r$ ($a_0$)',fontsize=15)
+
+plt.hlines(0,rmin,rmax,colors=jpac_color[9], lw=1., linestyles='solid', alpha=0.5)
+for l in range(lmax+1):
+    texto = '$\ell=$' +  str(l)
+    plt.plot(r,potencial(Z,l,r)*ry,'-',c=jpac_color[l],label=texto)
+    plt.hlines(En(ry,0,l),rmin,rmax,colors=jpac_color[l], lw=1., linestyles='dashed')
+    
+    for n in range(1,nmax+1):
+        plt.hlines(En(ry,n,l),rmin,rmax,colors=jpac_color[l], lw=1., linestyles='dotted', alpha=0.5)
+
+plt.legend(loc='lower right',ncol=1,frameon=True)
+plt.show()
+fig.savefig("hidrogeno.pdf", bbox_inches='tight')
+
+
+
+
+
+
