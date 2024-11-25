@@ -4,5 +4,4 @@
 
  Contenido
  
- - Presentaciones
  - Cuadernos de Jupyter
